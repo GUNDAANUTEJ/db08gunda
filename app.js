@@ -10,6 +10,8 @@ var tableRouter = require('./routes/table');
 var starsRouter = require('./routes/stars');
 var slotRouter = require('./routes/slot');
 
+
+
 var app = express();
 
 // view engine setup
