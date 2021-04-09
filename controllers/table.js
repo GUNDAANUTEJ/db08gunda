@@ -29,7 +29,7 @@ exports.table_create_post = async function (req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"tabletype":"goat", "cost":12, "size":"large"}
+    // {"Brand":"goat", "cost":12, "size":"large"}
     document.Brand = req.body.Brand;
     document.quality = req.body.quality;
     document.cost = req.body.cost;
@@ -47,9 +47,23 @@ exports.table_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: table delete DELETE ' + req.params.id);
 };
 // Handle table update form on PUT.
-exports.table_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: table update PUT' + req.params.id);
+exports.table_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
+    try {
+        let toUpdate = await table.findById( req.params.id)
+        // Do updates of properties
+        if(req.body.Brand) toUpdate.Brand = req.body.Brand;
+        if(req.body.quality) toUpdate.quality = req.body.quality;
+        if(req.body.cost) toUpdate.cost = req.body.cost;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
+    }
 };
+
 
 // VIEWS
 // Handle a show all view
