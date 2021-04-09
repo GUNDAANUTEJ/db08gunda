@@ -11,9 +11,17 @@ exports.table_list = async function(req, res) {
 //res.send('NOT IMPLEMENTED: table list');
 };
 // for a specific table.
-exports.table_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: table detail: ' + req.params.id);
+exports.table_detail = async function(req, res) {
+    console.log("detail"  + req.params.id)
+    try {
+        result = await table.findById( req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
+
 // Handle table create on POST.
 exports.table_create_post = async function (req, res) {
     console.log(req.body)
@@ -21,7 +29,7 @@ exports.table_create_post = async function (req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"costumetype":"goat", "cost":12, "size":"large"}
+    // {"tabletype":"goat", "cost":12, "size":"large"}
     document.Brand = req.body.Brand;
     document.quality = req.body.quality;
     document.cost = req.body.cost;
@@ -48,10 +56,9 @@ res.send('NOT IMPLEMENTED: table update PUT' + req.params.id);
 exports.table_view_all_Page = async function (req, res) {
     try {
         thetables = await table.find();
-        res.render('tables', { title: 'table Search Results', results: thetables });
+        res.render('table', { title: 'table Search Results', results: thetables });
     }
-    catch (err) {
-        res.send(`{"error": ${err}}`)
-        res.status(500);
+    catch(err) {
+        res.error(500,`{"error": ${err}}`);
     }
 };
