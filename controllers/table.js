@@ -2,8 +2,8 @@ var table = require('../models/table');
 // List of all tables
 exports.table_list = async function(req, res) {
     try{
-        thetables = await table.find();
-        res.send(thetables);
+        thetable = await table.find();
+        res.send(thetable);
     }
     catch(err){
         res.error(500,`{"error": ${err}}`);
@@ -29,7 +29,7 @@ exports.table_create_post = async function (req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"Brand":"goat", "cost":12, "size":"large"}
+    // {"Brand":"Brand1", "quality":"high", "cost":150}
     document.Brand = req.body.Brand;
     document.quality = req.body.quality;
     document.cost = req.body.cost;
@@ -69,8 +69,8 @@ exports.table_update_put = async function(req, res) {
 // Handle a show all view
 exports.table_view_all_Page = async function (req, res) {
     try {
-        thetables = await table.find();
-        res.render('table', { title: 'table Search Results', results: thetables });
+        thetable = await table.find();
+        res.render('table', { title: 'table Search Results', results: thetable });
     }
     catch(err) {
         res.error(500,`{"error": ${err}}`);

@@ -6,23 +6,7 @@ block content
   div(class="container-fluid")
         div(class="row")
             -
-                let table = [
-                    {
-                        "Brand": "brand1",
-                        "quality": "high",
-                        "cost": 150                        
-                    },
-                    {
-                        "Brand": "brand2",
-                        "quality": "medium",
-                        "cost": 100
-                    },
-                    {
-                        "Brand": "brand3",
-                        "quality": "low",
-                        "cost": 100
-                    },                   
-                ]
+                let table = Results
             each t,h in table 
                 div(class="col-sm-2" onclick=`buy(${h})` ) #{t.Brand}
                 div(class="col-sm-2" ) #{t.quality}

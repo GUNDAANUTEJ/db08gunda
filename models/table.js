@@ -1,8 +1,8 @@
   
 const mongoose = require("mongoose")
 const tableSchema = mongoose.Schema({
-type: String,
-price: Number,
-flavor: String
+Brand: String,
+quality: String,
+cost: Number
 })
 module.exports = mongoose.model("table", tableSchema)
