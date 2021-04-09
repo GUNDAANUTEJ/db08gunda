@@ -9,13 +9,12 @@ mongoose = require('mongoose');
 mongoose.connect(connectionString,
 {useNewUrlParser: true, useUnifiedTopology: true});
 
-
 var table = require("./models/table");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var tableRouter = require('./routes/table');
 var starsRouter = require('./routes/stars');
-var slotMachineRouter = require('./routes/slot');
+var slotRouter = require('./routes/slot');
 var resourceRouter = require('./routes/resource');
 
 // We can seed the collection if needed on server start
@@ -23,17 +22,17 @@ async function recreateDB(){
   // Delete everything
   console.log('Testing');
   // await table.deleteMany();
-  let instance1 = new table({Brand:"brand1", quality: "high", cost:150});
+  let instance1 = new table({Brand:"brand1", quality: "high", cost: 150 });
   instance1.save( function(err,doc) {
     if(err) return console.error(err);
     console.log("First object saved")
   });
-  let instance2 = new table({Brand:"brand2", quality: "medium", cost:100});
+  let instance2 = new table({Brand:"brand2", quality: "medium", cost: 100 });
   instance2.save( function(err,doc) {
     if(err) return console.error(err);
     console.log("Second object saved")
   });
-  let instance3 = new table({Brand:"brand3", quality: "low", cost:100});
+  let instance3 = new table({Brand:"brand3", quality: "low", cost: 100 });
   instance3.save( function(err,doc) {
     if(err) return console.error(err);
     console.log("Third object saved")
@@ -56,9 +55,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/table',tableRouter);
-app.use('/stars',starsRouter);
-app.use('/slot',slotMachineRouter);
+app.use('/table', tableRouter);
+app.use('/stars', starsRouter);
+app.use('/slot', slotRouter);
 app.use('/resource',resourceRouter);
 
 // catch 404 and forward to error handler
