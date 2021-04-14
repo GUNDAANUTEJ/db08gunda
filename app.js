@@ -21,7 +21,7 @@ var resourceRouter = require('./routes/resource');
 async function recreateDB(){
   // Delete everything
   console.log('Testing');
-  // await table.deleteMany();
+  await table.deleteMany();
   let instance1 = new table({Brand:"brand1", quality: "high", cost: 150 });
   instance1.save( function(err,doc) {
     if(err) return console.error(err);

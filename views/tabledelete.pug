@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    h1= title
+
+    - let tableid = toShow._id
+    - let tableBrand = toShow.Brand
+    - let tablequality = toShow.quality
+    - let tablecost = toShow.cost
+
+    div
+        div.row
+            div(class='costumeAttr mr-3') Table Brand is:
+            div(id="tableid") #{tableid}
+        div.row
+            div(class='costumeAttr mr-3') Table Brand is:
+            div #{tablebrand}
+        div.row
+            div(class='costumeAttr mr-3') Table Quality is:
+            div #{tablequality}
+        div.row
+            div(class='costumeAttr mr-3') Table Cost is:
+            div #{tablecost}
+        div.row
+            button(class='btn btn-danger btn-md m-auto'  type="Submit" onclick=`deleteTable()`) Delete
+
+    script.
+        function deleteTable() {
+            let value=document.getElementById("tableid").innerHTML;
+            console.log(value)
+            // TODO do something here to show user that form is being submitted
+            fetch('/resource/table/'+ value, {
+                method: 'DELETE'
+            }).then((resp) => {
+                return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Delete succeded")
+                 // TODO handle body
+            }).catch((error) => {
+                // TODO handle error
+                alert("Delete failed " + error )
+            });
+        };

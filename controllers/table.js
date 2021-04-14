@@ -76,3 +76,70 @@ exports.table_view_all_Page = async function (req, res) {
         res.error(500,`{"error": ${err}}`);
     }
 };
+
+// Handle table delete form on DELETE.
+exports.table_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+        result = await table.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
+};
+
+// Handle a show one view with id specified by query
+exports.table_view_one_Page = async function(req, res) {
+    console.log("single view for id "  + req.query.id)
+    try{
+        result = await table.findById( req.query.id)
+        res.render('tabledetail', { title: 'Table Detail', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.table_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+        res.render('tablecreate', { title: 'Table Create'});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for updating a table.
+// query provides the id
+exports.table_update_Page =  async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+        let result = await table.findById(req.query.id)
+        res.render('tableupdate', { title: 'Table Update', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle a delete one view with id from query
+exports.table_delete_Page = async function(req, res) {
+    console.log("Delete view for id "  + req.query.id)
+    try{
+        result = await table.findById(req.query.id)
+        res.render('tabledelete', { title: 'Table Delete', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+
+  - let tableid = toShow._id
+  - let tablebrand = toShow.Brand
+  - let tablequality = toShow.quality
+  - let tablecost = toShow.cost
+
+  div
+    div.row
+      div(class='costumeAttr mr-3') table ID is:
+      div #{tableid}
+    div.row
+      div(class='costumeAttr mr-3') table brand is:
+      div #{tablebrand}
+    div.row
+      div(class='costumeAttr mr-3') table quality is:
+      div #{tablequality}
+    div.row
+      div(class='costumeAttr mr-3') table cost is:
+      div #{tablecost}
