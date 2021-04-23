@@ -1,21 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title} JS Tutorial page
-  button(type="button", class="btn btn-secondary" onclick='update()') press me 
-  br
-  br
-  div(id='target') Display
-  br
-  a(href='/table') Search table page
-  script.
-    var client_count = 0;
-    function update(){
-      client_count++
-      document.getElementById("target").innerHTML = `Value now ${client_count}`
-    }
-
-  p
-
-  a(href="table") Go to table Page
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/tables") Take me to tables
+    br
+    a(href="/logout") Logout
