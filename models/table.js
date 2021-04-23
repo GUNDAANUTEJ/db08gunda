@@ -1,7 +1,7 @@
   
 const mongoose = require("mongoose")
 const tableSchema = mongoose.Schema({
-Brand: String,
+Brand: {type: String, maxLength: 10},
 quality: String,
 cost: {type: Number, min: 100, max: 500}
 })
